@@ -10,3 +10,5 @@ cd fonts
 # clean-up a bit
 cd ..
 rm -rf fonts
+
+ln -s ./init.vim ~/.config/nvim/init.vim
