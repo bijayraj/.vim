@@ -25,7 +25,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ycm-core/YouCompleteMe'
+Plugin 'preservim/nerdtree'
+Plugin 'ryanoasis/vim-devicons'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 "filetype plugin indent on    " required
@@ -193,15 +194,54 @@ let g:lasttab=1
 nmap <leader>t1 :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Window related mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Buffers related mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<cr>
+
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
+
+
 "---------AIRLINE RELATED---------------------
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-
-
-
 let g:airline_powerline_fonts = 1
 
-let g:airline_powerline_fonts = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Netrw related
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:netrw_liststyle = 3
 
-
-let g:airline_powerline_fonts = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree related
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <C-b> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
