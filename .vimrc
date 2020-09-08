@@ -27,6 +27,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'preservim/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'morhetz/gruvbox'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 "filetype plugin indent on    " required
@@ -41,12 +42,15 @@ set nu
 set path+=**
 
 "Make colors pop- More bright colors
-"set termguicolors
+set termguicolors
 
 "Enable filetype plugins
 filetype plugin on
 filetype indent on
 
+colorscheme gruvbox
+
+let g:gruvbox_contrast_dark = 'medium'
 "Set to autoread when file is changed from outside
 set autoread
 au FocusGained, BufEnter * checktime
@@ -111,6 +115,10 @@ set tm=500
 
 "Add some margin to the left
 set foldcolumn=1
+
+"Spell checking commands
+set spelllang=en
+set spellfile=$HOME/.vim/en.utf-8.add
 
 """""""""""""""""""""""""""""""""""""""""""
 "Colors and fonts
@@ -232,6 +240,7 @@ nmap <leader>bl :ls<CR>
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+let g:airline_theme='jellybean'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Netrw related
@@ -245,3 +254,4 @@ nmap <C-b> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
